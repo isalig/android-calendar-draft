@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Android Playground</string>
+    <string name="test_string_resource">Test string</string>
+</resources>
