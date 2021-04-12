@@ -3,18 +3,19 @@ package io.aiico.playground
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.xwray.groupie.GroupieAdapter
+import io.aiico.playground.databinding.CalendarFragmentBinding
+import io.aiico.playground.model.MonthItem
 
 class CalendarFragment : Fragment(R.layout.calendar_fragment) {
 
+    private val binding by viewBinding(CalendarFragmentBinding::bind)
     private lateinit var viewModel: CalendarViewModel
 
-    private lateinit var calendarRecycler: RecyclerView
-
+    private val recycledViewPool = NoLimitRecycledViewPool()
     private val adapter = GroupieAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,15 +25,18 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        calendarRecycler = view.findViewById(R.id.calendar_recycler_view)
-        calendarRecycler.setHasFixedSize(true)
-        (calendarRecycler.layoutManager as LinearLayoutManager).apply {
-            recycleChildrenOnDetach = true
-            initialPrefetchItemCount = 20
-        }
-        viewModel.months.observe(viewLifecycleOwner) { items ->
-            adapter.update(items)
-            calendarRecycler.adapter ?: let { calendarRecycler.adapter = adapter }
+        with(binding) {
+            calendarRecycler.setHasFixedSize(true)
+            (calendarRecycler.layoutManager as LinearLayoutManager).apply {
+                recycleChildrenOnDetach = true
+            }
+            viewModel.months.observe(viewLifecycleOwner) { items ->
+                items
+                    .mapNotNull { it as? MonthItem }
+                    .forEach { it.recycledViewPool = recycledViewPool }
+                adapter.updateAsync(items)
+                calendarRecycler.adapter ?: let { calendarRecycler.adapter = adapter }
+            }
         }
     }
 

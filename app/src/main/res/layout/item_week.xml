@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal">
+
+    <io.aiico.playground.view.DayView
+        android:id="@+id/monday"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp" />
+
+    <io.aiico.playground.view.DayView
+        android:id="@+id/tuesday"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp" />
+
+    <io.aiico.playground.view.DayView
+        android:id="@+id/wednesday"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp" />
+
+    <io.aiico.playground.view.DayView
+        android:id="@+id/thursday"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp" />
+
+    <io.aiico.playground.view.DayView
+        android:id="@+id/friday"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp" />
+
+    <io.aiico.playground.view.DayView
+        android:id="@+id/saturday"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp" />
+
+    <io.aiico.playground.view.DayView
+        android:id="@+id/sunday"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp" />
+
+</LinearLayout>

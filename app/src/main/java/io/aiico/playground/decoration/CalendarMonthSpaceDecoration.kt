@@ -6,7 +6,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.GroupieAdapter
 import io.aiico.playground.R
-import io.aiico.playground.model.MonthModel
+import io.aiico.playground.model.MonthTitleItem
 
 class CalendarMonthSpaceDecoration(
     context: Context,
@@ -25,7 +25,7 @@ class CalendarMonthSpaceDecoration(
         if (position == RecyclerView.NO_POSITION) return
 
         when (adapter.getItem(position)) {
-            is MonthModel -> decorateTitleView(outRect)
+            is MonthTitleItem -> decorateTitleView(outRect)
 //            is DayModel -> decorateDayView(outRect, position)
         }
     }
